@@ -1,8 +1,13 @@
+################################ ATTENTION ################################
+# Ensure that the "cloudresourcemanager.googleapis.com" is enabled in
+# the Service Account project, else request will give a 403 HTTP error
+################################ ATTENTION ################################
+
 # Create a OAuth2 Token to execute the requests
 data "google_service_account_access_token" "request_sa" {
   target_service_account = var.request_sa
   scopes                 = ["cloud-platform"]
-  lifetime               = "300s"
+  lifetime               = "120s"
 }
 
 # Request the projects for the specific parent

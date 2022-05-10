@@ -15,12 +15,16 @@
 variable "parent_id" {
   description = "Parent ID where projects ID will be get (example: folders/<NUM>; organizations/<NUM>)"
   type        = string
+  validation {
+    condition     = can(regex("organizations|folders", split("/", var.parent_id)[0]))
+    error_message = "The parent_id must follow the following formats: 'organizations/<NUM>' or 'folders/<NUM>'."
+  }
 }
 
 variable "depth" {
-  description = "How many sub-folder levels will be included (max: 8)"
+  description = "How many sub-folder levels will be included (max: 10)"
   type        = number
-  default     = 5
+  default     = 10
 }
 
 variable "label_filter" {
