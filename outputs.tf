@@ -13,6 +13,7 @@
 #    limitations under the License.
 
 output "projects" {
+  description = "List of projects found (and optionally filtered) within the provided parent."
   value = { for p in flatten([for f in data.http.projects : [
     for v in lookup(jsondecode(f.body), "projects", []) : v
     if var.label_filter == null ? true : lookup(lookup(v, "labels", {}), var.label_filter.key, "") == var.label_filter.value

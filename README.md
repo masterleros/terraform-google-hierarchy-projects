@@ -21,4 +21,5 @@ No requirements.
 
 | Name | Description |
 |------|-------------|
-| projects | n/a |
+| projects | List of projects found (and optionally filtered) within the provided parent. |
+

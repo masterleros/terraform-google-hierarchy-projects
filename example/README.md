@@ -17,5 +17,7 @@ No requirements.
 
 ## Outputs
 
-No output.
+| Name | Description |
+|------|-------------|
+| projects | List of projects found in current request |
 
