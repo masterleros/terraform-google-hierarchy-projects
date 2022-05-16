@@ -33,6 +33,12 @@ variable "label_filter" {
   default     = null
 }
 
+variable "billing_info" {
+  description = "Retrieve Billing Information"
+  type        = bool
+  default     = false
+}
+
 variable "access_token" {
   description = "GCP Access Token"
   type        = string

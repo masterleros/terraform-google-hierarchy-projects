@@ -11,7 +11,3 @@ variable "parent_id" {
     error_message = "The parent_id must follow the following formats: 'organizations/<NUM>' or 'folders/<NUM>'."
   }
 }
-
-output "test" {
-  value = can(regex("organizations|folders", split("/", var.parent_id)[0]))
-}

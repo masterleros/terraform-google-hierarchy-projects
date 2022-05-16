@@ -35,6 +35,12 @@ locals {
 
   # Collect all projects
   project_ids = flatten([for f in data.http.projects : [for v in lookup(jsondecode(f.body), "projects", []) : v.displayName]])
+
+  # Filter the resultant projects
+  filtered_project_ids = [for p in flatten([for f in data.http.projects : [
+    for v in lookup(jsondecode(f.body), "projects", []) : v
+    if var.label_filter == null ? true : lookup(lookup(v, "labels", {}), var.label_filter.key, "") == var.label_filter.value
+  ]]) : p.projectId]
 }
 
 data "http" "l1_folders" {
@@ -100,5 +106,11 @@ data "http" "l10_folders" {
 data "http" "projects" {
   for_each        = toset(local.parents)
   url             = "https://cloudresourcemanager.googleapis.com/v3/projects?parent=${each.key}&pageSize=500"
+  request_headers = local.request_headers
+}
+
+data "http" "project_billing" {
+  for_each        = toset(var.billing_info ? local.filtered_project_ids : [])
+  url             = "https://cloudbilling.googleapis.com/v1/projects/${each.key}/billingInfo"
   request_headers = local.request_headers
 }

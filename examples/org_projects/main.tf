@@ -12,9 +12,11 @@ data "google_service_account_access_token" "request_sa" {
 
 # Request the projects for the specific parent
 module "hierarchy_projects" {
-  source       = "github.com/masterleros/terraform-google-hierarchy-projects"
+  # source       = "github.com/masterleros/terraform-google-hierarchy-projects"
+  source       = "../../"
   access_token = data.google_service_account_access_token.request_sa.access_token
   parent_id    = var.parent_id
+  # billing_info = true
   # label_filter = { key = "env", value = "nonprod" }
   # depth = 0
 }
